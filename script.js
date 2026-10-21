@@ -574,7 +574,7 @@ const locationDescription =
 const locationIcon =
     document.getElementById("locationModalIcon");
 
-const whatsappNumber = "96171918022";
+const whatsappNumber = "96176637034";
 
 let customerLocation = null;
 let locationLoading = false;

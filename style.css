@@ -2135,3 +2135,13 @@ body {
     margin-top: 15px;
     font-size: 10px;
 }
+
+.category-btn.active {
+    background: #610f20 !important;
+    color: #ffffff !important;
+}
+
+.category-btn:not(.active) {
+    background: transparent !important;
+    color: #610f20 !important;
+}

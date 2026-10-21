@@ -188,13 +188,13 @@ detailButton.addEventListener("click", function () {
 
 
         // تحديث حالة أزرار الأقسام
-    
-categoryButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-        showCategory(button.dataset.category);
-    });
-});
 
+categoryButtons.forEach(function (button) {
+    const isActive = button.dataset.category === category;
+
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+});
 
 
         // رسالة إذا لم توجد منتجات
@@ -210,6 +210,12 @@ categoryButtons.forEach(function (button) {
 
 
 
+
+categoryButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+        showCategory(button.dataset.category);
+    });
+});
 
     /* ===================================
        INITIAL CATEGORY
@@ -686,7 +692,7 @@ activateLocationBtn?.addEventListener("click", async function () {
 
 function sendWhatsAppOrder() {
     let message = "🍓 *CREPE TIME BY ABU HUSSEIN*\n";
-    message += "🛒 *New Order*\n\n";
+    message += "  *New Order*\n\n";
 
     let total = 0;
 
@@ -699,14 +705,14 @@ function sendWhatsAppOrder() {
         message += "Subtotal: " + formatPrice(subtotal) + "\n\n";
     });
 
-    message += "💰 *TOTAL: " + formatPrice(total) + "*\n\n";
+    message += "  *TOTAL: " + formatPrice(total) + "*\n\n";
 
     const locationUrl =
         "https://www.google.com/maps?q=" +
         customerLocation.latitude + "," +
         customerLocation.longitude;
 
-    message += "📍 *Customer Location:*\n";
+    message += "  *Customer Location:*\n";
     message += locationUrl + "\n\n";
     message += "Thank you! ❤️";
 

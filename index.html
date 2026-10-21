@@ -1,0 +1,666 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,
+                   maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#f5e8d3">
+
+    <title>Crepe Time | By Abu Hussein</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- شاشة البداية -->
+    <main class="splash-screen" id="splash">
+
+        <!-- صورة الخلفية -->
+        <div class="background-image"></div>
+
+        <!-- اللوغو الأصلي -->
+        <img
+            src="images/logo.png"
+            alt="Crepe Time by Abu Hussein"
+            class="logo"
+        >
+
+        <!-- العبارة الرئيسية -->
+        <div class="slogan">
+            <p>Sweet Moments,</p>
+            <p>Better Together</p>
+        </div>
+
+        <!-- القلب والخطوط -->
+        <div class="heart-divider">
+            <span></span>
+            <b>♥</b>
+            <span></span>
+        </div>
+
+        <!-- شريط التحميل -->
+        <div class="loading-container">
+            <div class="loading-bar">
+                <div class="loading-progress" id="loadingProgress"></div>
+            </div>
+        </div>
+
+        <!-- التوقيع السفلي -->
+        <div class="footer-brand">
+            <div class="footer-divider">
+                <span></span>
+                <b>⚜</b>
+                <span></span>
+            </div>
+
+            <p>by Abu Hussein</p>
+        </div>
+
+    </main>
+
+    
+<!-- الشاشة الرئيسية للمنيو -->
+<main class="menu-screen" id="menuScreen" hidden>
+
+ 
+<header class="menu-header">
+    <img
+        src="images/menu-header.jpg"
+        alt="Crepe Time - Sweet Moments, Better Together"
+        class="menu-header-image"
+    >
+</header>
+
+<!-- ===================================
+     SEARCH BAR & SHOPPING CART
+=================================== -->
+
+<div class="shop-toolbar">
+
+    <!-- Search Bar -->
+    <div class="search-box">
+
+        <svg class="search-icon"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="M20 20L16 16"></path>
+        </svg>
+
+        <input
+            type="search"
+            id="productSearch"
+            placeholder="Search for delicious treats..."
+            aria-label="Search products"
+            autocomplete="off"
+        >
+
+    </div>
+
+    <!-- Shopping Cart -->
+    <button
+        class="cart-button"
+        id="cartButton"
+        type="button"
+        aria-label="Open shopping cart">
+
+        <svg class="cart-icon"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="1.8"
+             stroke-linecap="round"
+             stroke-linejoin="round"
+             aria-hidden="true">
+
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+
+            <path d="M1 1h4l2.5 13h12l3-9H6"></path>
+
+        </svg>
+
+        <!-- Cart Counter -->
+        <span class="cart-count"
+              id="cartCount"
+              aria-live="polite">0</span>
+
+    </button>
+
+</div>
+<!-- END SEARCH & CART -->
+
+
+    <!-- أقسام المنيو -->
+   
+<!-- أقسام المنيو -->
+<nav class="category-nav" aria-label="Menu categories">
+
+    <button class="category-btn active"
+            data-category="crepe"
+            aria-pressed="true">
+
+        <span class="category-icon">
+          
+<svg viewBox="0 0 48 48" aria-hidden="true">
+    <path d="M13 19 L35 19 L24 35 Z"/>
+    <path d="M18 22 L20 25 M24 22 L24 25 M29 22 L28 25"/>
+    <path d="M24 19 L24 14"/>
+</svg>
+
+        </span>
+        <span>Crepes</span>
+    </button>
+
+    <button class="category-btn"
+            data-category="waffle"
+            aria-pressed="false">
+
+        <span class="category-icon">
+          
+<svg viewBox="0 0 48 48" aria-hidden="true">
+    <rect x="14" y="14" width="20" height="20" rx="2"/>
+    <path d="M20.7 14 V34 M27.3 14 V34"/>
+    <path d="M14 20.7 H34 M14 27.3 H34"/>
+</svg>
+
+        </span>
+        <span>Waffles</span>
+    </button>
+
+    <button class="category-btn"
+            data-category="pancake"
+            aria-pressed="false">
+
+      
+<span class="category-icon">
+    <svg viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M12 31 Q12 28 17 28 H31 Q36 28 36 31 Q36 34 31 34 H17 Q12 34 12 31Z"/>
+        <path d="M15 25 Q15 22 20 22 H29 Q34 22 34 25 Q34 28 29 28 H20 Q15 28 15 25Z"/>
+        <path d="M19 19 Q19 16 24 16 Q29 16 29 19 Q29 22 24 22 Q19 22 19 19Z"/>
+        <path d="M20 13 Q24 10 28 13"/>
+    </svg>
+</span>
+
+        <span> Mini Pancakes  </span>
+    </button>
+
+</nav>
+
+
+    <!-- عنوان القسم -->
+    <section class="products-section">
+
+        <!-- المنتجات تظهر هنا بواسطة JavaScript -->
+        <div class="products-grid" id="productsGrid"></div>
+
+    </section>
+
+<!-- ==================================
+     كل الأصناف والأسعار والصور هنا
+=================================== -->
+<section id="menuData" hidden>
+    <!-- ========== CREPES ========== -->
+    <article class="menu-item"
+             data-category="crepe"
+             data-name="Nutella Crepe"
+             data-description="Delicious crepe filled with Nutella chocolate."
+             data-price="300 000  ">
+        <img src="images/Nutella Crêpe.jpg" alt="Nutella Crepe">
+    </article>
+
+        <article class="menu-item"
+             data-category="crepe"
+             data-name="Lotus Crêpe"
+             data-description="Delicious crepe filled with Lotus Biscoff spread."
+             data-price="300 000  ">
+        <img src="images/Lotus crepe.jpg" alt="Lotus Crepe">
+    </article>
+
+    <article class="menu-item"
+             data-category="crepe"
+             data-name=" Oreo Crêpe"
+             data-description="Delicious crepe filled with Oreo cookies and chocolate cream."
+             data-price="350 000  ">
+        <img src="images/Oreo Crêpe.jpg" alt="Oreo Crepe">
+    </article>
+
+   <article class="menu-item"
+             data-category="crepe"
+             data-name=" Pistachio Crêpe"
+             data-description="Delicious crepe filled with creamy pistachio spread."
+             data-price="400 000  ">
+        <img src="images/Pistachio Crêpe.jpg" alt="Pistachio Crepe">
+    </article>
+
+       <article class="menu-item"
+             data-category="crepe"
+             data-name="Belgium Crêpe"
+             data-description="Delicious crepe filled with rich Belgian chocolate."
+             data-price="350 000  ">
+        <img src="images/Belgium Crêpe.jpg" alt="Belgium Crêpe">
+    </article>
+
+      <article class="menu-item"
+             data-category="crepe"
+             data-name="Kinder Crepe"
+             data-description="Delicious crepe filled with Kinder chocolate."
+             data-price="400 000  ">
+        <img src="images/Kinder Crepe.jpg" alt="Kinder Crepe">
+    </article>
+
+        <article class="menu-item"
+             data-category="crepe"
+             data-name="kinder bueno Crepe"
+             data-description="Delicious crepe filled with Kinder Bueno chocolate."
+             data-price="400 000  ">
+        <img src="images/Kinder Crepe.jpg" alt="kinder bueno Crepe">
+    </article>
+
+   <article class="menu-item"
+             data-category="crepe"
+             data-name="Crunch Crepe"
+             data-description="Delicious crepe filled with crunchy chocolate goodness."
+             data-price="450 000  ">
+        <img src="images/crunch Crepe.jpg" alt="Crunch Crepe">
+    </article>
+
+    <article class="menu-item"
+             data-category="crepe"
+             data-name="Crepe Roll"
+             data-description="Delicious rolled crepe filled with rich chocolate and sweet toppings."
+             data-price="450 000  ">
+        <img src="images/Crepe Roll.jpg" alt="Crepe Roll">
+    </article>
+
+   <article class="menu-item"
+             data-category="crepe"
+             data-name="Dobay Crepe"
+             data-description="Delicious crepe filled with double chocolate for an extra sweet treat."
+             data-price="450 000  ">
+        <img src="images/Dobay Crepe.jpg" alt="Dobay Crepe">
+    </article>
+
+     <article class="menu-item"
+             data-category="crepe"
+             data-name="Fotochini Crepe"
+             data-description="Delicious crepe filled with rich chocolate and crunchy biscuit pieces."
+             data-price="450 000  ">
+        <img src="images/Fotochini Crepe.jpg" alt="Fotochini Crepe">
+    </article>
+
+      <article class="menu-item"
+             data-category="crepe"
+             data-name="Maltesers Crepe"
+             data-description="Delicious crepe filled with Maltesers chocolate and crunchy malt pieces."
+             data-price="400 000  ">
+        <img src="images/maltesers Crepe.jpg" alt="Maltesers Crepe ">
+    </article>
+
+
+<!-- ========== ==============================================================================
+ WAFFLES مودال= 
+ ================================================================================================================ -->
+
+<article class="menu-item"
+         data-category="waffle"
+         data-name="Nutella Waffle"
+         data-description="Delicious crispy waffle topped with rich Nutella chocolate."
+         data-price="450 000">
+    <img src="images/waffles nutella.jpg" alt="Nutella Waffle">
+</article>
+
+<article class="menu-item"
+         data-category="waffle"
+         data-name="Lotus Waffle"
+         data-description="Delicious waffle topped with creamy Lotus Biscoff spread and crunchy biscuit crumbs."
+         data-price="450 000">
+    <img src="images/Lotus Waffle.jpg" alt="Lotus Waffle">
+</article>
+
+<article class="menu-item"
+         data-category="waffle"
+         data-name="Oreo Waffle"
+         data-description="Crispy waffle topped with Oreo cookies and delicious chocolate cream."
+         data-price="450 000">
+    <img src="images/Oreo Waffle.jpg" alt="Oreo Waffle">
+</article>
+
+<article class="menu-item"
+         data-category="waffle"
+         data-name="Pistachio Waffle"
+         data-description="Delicious waffle topped with creamy pistachio spread and crunchy pistachio pieces."
+         data-price="500 000">
+    <img src="images/Pistachio Waffle.jpg" alt="Pistachio Waffle">
+</article>
+
+<article class="menu-item"
+         data-category="waffle"
+         data-name="Kinder Waffle"
+         data-description="Delicious waffle topped with smooth Kinder chocolate."
+         data-price="400 000">
+    <img src="images/Kinder Waffle.jpg" alt="Kinder Waffle">
+</article>
+
+<article class="menu-item"
+         data-category="waffle"
+         data-name="Crunch Waffle"
+         data-description="Delicious waffle topped with crunchy chocolate and sweet toppings."
+         data-price="450 000">
+    <img src="images/white Crunch Waffle.jpg" alt="Crunch Waffle">
+</article>
+
+<article class="menu-item"
+         data-category="waffle"
+         data-name="Add"
+         data-description="Adding more chocolate or fruit"
+         data-price="100 000">
+    <img src="images/add.jpg" alt="Crunch Waffle">
+</article>
+<!-- ========================================================================================================
+     MINI PANCAKES
+======================================================================================================== -->
+<article class="menu-item"
+         data-category="pancake"
+         data-name="Nutella   12 PC"
+         data-description="Fluffy mini pancakes topped with rich Nutella chocolate."
+         data-price="350 000">
+    <img src="images/Nutella Mini Pancakes.jpg"
+         alt="Nutella Mini Pancakes">
+</article>
+
+<article class="menu-item"
+         data-category="pancake"
+         data-name="Nutella   24 PC"
+         data-description="Fluffy mini pancakes topped with rich Nutella chocolate."
+         data-price="600 000">
+    <img src="images/Nutella Mini Pancakes.jpg"
+         alt="Nutella Mini Pancakes">
+</article>
+
+<article class="menu-item"
+         data-category="pancake"
+         data-name="Lotus 12 PC"
+         data-description="Soft mini pancakes topped with creamy Lotus Biscoff spread and crunchy biscuit crumbs."
+         data-price="350 000">
+    <img src="images/Lotus Mini Pancakes.jpg"
+         alt="Lotus Mini Pancakes">
+</article>
+
+<article class="menu-item"
+         data-category="pancake"
+         data-name="Lotus 24 PC"
+         data-description="Soft mini pancakes topped with creamy Lotus Biscoff spread and crunchy biscuit crumbs."
+         data-price="600 000">
+    <img src="images/Lotus Mini Pancakes.jpg"
+         alt="Lotus Mini Pancakes">
+</article>
+
+<article class="menu-item"
+         data-category="pancake"
+         data-name="Oreo 12 PC"
+         data-description="Delicious mini pancakes topped with Oreo cookies and smooth chocolate sauce."
+         data-price="350 000">
+    <img src="images/Oreo Mini Pancakes.jpg"
+         alt="Oreo Mini Pancakes">
+</article>
+
+<article class="menu-item"
+         data-category="pancake"
+         data-name="Oreo 24 PC"
+         data-description="Delicious mini pancakes topped with Oreo cookies and smooth chocolate sauce."
+         data-price="350 000">
+    <img src="images/Oreo Mini Pancakes.jpg"
+         alt="Oreo Mini Pancakes">
+</article>
+
+<article class="menu-item"
+         data-category="pancake"
+         data-name="Pistachio 12 PC"
+         data-description="Fluffy mini pancakes covered with creamy pistachio spread and crunchy pistachio pieces."
+         data-price="400 000">
+    <img src="images/Pistachio Mini Pancakes.jpg"
+         alt="Pistachio Mini Pancakes">
+</article>
+
+<article class="menu-item"
+         data-category="pancake"
+         data-name="Pistachio 24 PC"
+         data-description="Fluffy mini pancakes covered with creamy pistachio spread and crunchy pistachio pieces."
+         data-price="600 000">
+    <img src="images/Pistachio Mini Pancakes.jpg"
+         alt="Pistachio Mini Pancakes">
+</article>
+
+<article class="menu-item"
+         data-category="pancake"
+         data-name="Belgium 12 PC"
+         data-description="Soft mini pancakes topped with rich Belgian chocolate."
+         data-price="350 000">
+    <img src="images/Belgium Mini Pancakes.jpg"
+         alt="Belgium Mini Pancakes">
+</article>
+
+<article class="menu-item"
+         data-category="pancake"
+         data-name="Belgium 24 PC"
+         data-description="Soft mini pancakes topped with rich Belgian chocolate."
+         data-price="600 000">
+    <img src="images/Belgium Mini Pancakes.jpg"
+         alt="Belgium Mini Pancakes">
+</article>
+
+<article class="menu-item"
+         data-category="pancake"
+         data-name="Mixed Special 12 PC"
+         data-description="Soft mini pancakes topped with a delicious mix of chocolates and irresistible toppings."
+         data-price="350 000">
+    <img src="images/Mixed Special Mini Pancakes.jpg"
+         alt="Mixed Special Mini Pancakes">
+</article>
+
+<article class="menu-item"
+         data-category="pancake"
+         data-name="Mixed Special 24 PC"
+         data-description="Soft mini pancakes topped with a delicious mix of chocolates and irresistible toppings."
+         data-price="750 000">
+    <img src="images/Mixed Special Mini Pancakes.jpg"
+         alt="Mixed Special Mini Pancakes">
+</article>
+
+<article class="menu-item"
+         data-category="pancake"
+         data-name="White 12 PC"
+         data-description="Our special fluffy mini pancakes topped with a premium mix of chocolates and delicious toppings."
+         data-price="350 000">
+    <img src="images/White Mini Pancakes.jpg"
+         alt="White Special Mini Pancakes">
+</article>
+
+<article class="menu-item"
+         data-category="pancake"
+         data-name="White 24 PC"
+         data-description="Our special fluffy mini pancakes topped with a premium mix of chocolates and delicious toppings."
+         data-price="600 000">
+    <img src="images/White Mini Pancakes.jpg"
+         alt="Crepe Time Special Mini Pancakes">
+</article>
+
+</section>
+    <footer class="menu-footer">
+        <span>♥</span>
+        <p>Crepe Time · By Abu Hussein</p>
+    </footer>
+
+</main>
+
+
+<!-- ADD TO CART SUCCESS TOAST -->
+<div id="cartToast"
+     class="cart-toast"
+     role="status"
+     aria-live="polite"
+     aria-atomic="true">
+
+    <div class="toast-icon">✓</div>
+
+    <div class="toast-content">
+        <strong>Added to Cart!</strong>
+        <p id="toastMessage">
+            Product added successfully.
+        </p>
+    </div>
+
+    <button id="closeToast"
+            class="toast-close"
+            type="button"
+            aria-label="Close notification">×</button>
+
+</div>
+
+
+
+
+<!-- ===================================
+     CREPE TIME - SHOPPING CART MODAL
+=================================== -->
+
+<div id="shoppingCartModal"
+     class="shopping-cart-overlay"
+     hidden>
+
+    <div class="shopping-cart-box"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="shoppingCartTitle">
+
+        <!-- CART HEADER -->
+        <div class="shopping-cart-header">
+
+            <div class="shopping-cart-heading">
+                <h2 id="shoppingCartTitle">
+                    Your Cart ♡
+                </h2>
+
+                <p>Your sweet selections</p>
+            </div>
+
+            <button id="closeShoppingCart"
+                    class="shopping-cart-close"
+                    type="button"
+                    aria-label="Close cart">
+                &times;
+            </button>
+
+        </div>
+
+        <!-- CART PRODUCTS -->
+        <div id="shoppingCartItems"
+             class="shopping-cart-items">
+
+            <!-- JavaScript will add products here -->
+
+        </div>
+
+        <!-- EMPTY CART -->
+        <div id="shoppingCartEmpty"
+             class="shopping-cart-empty">
+
+            <div class="empty-cart-icon">♡</div>
+
+            <h3>Your cart is empty</h3>
+
+            <p>
+                Add something sweet to your cart!
+            </p>
+
+            <button id="exploreMenuBtn"
+                    class="explore-menu-btn"
+                    type="button">
+                Explore Menu
+            </button>
+
+        </div>
+
+        <!-- CART FOOTER -->
+        <div id="shoppingCartFooter"
+             class="shopping-cart-footer"
+             hidden>
+
+            <div class="shopping-cart-total">
+
+                <span>Total</span>
+
+                <strong id="shoppingCartTotal">
+                    0 L.L
+                </strong>
+
+            </div>
+
+            <button id="orderWhatsappBtn"
+                    class="order-whatsapp-btn"
+                    type="button">
+
+                <span>Order via WhatsApp</span>
+                <span aria-hidden="true">→</span>
+
+            </button>
+
+            <p class="shopping-cart-brand">
+                Crepe Time · By Abu Hussein ♥
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- END SHOPPING CART MODAL -->
+
+
+<!-- CREPE TIME - LOCATION MODAL -->
+<div id="locationModal" class="location-overlay" hidden>
+    <div class="location-box"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="locationTitle">
+
+        <button id="closeLocationModal"
+                class="location-close"
+                type="button"
+                aria-label="Close">×</button>
+
+        <div id="locationModalIcon"
+             class="location-modal-icon">📍</div>
+
+        <h2 id="locationTitle">Enable Your Location</h2>
+
+        <p id="locationDescription">
+            Please allow location access so we can
+            deliver your order.
+        </p>
+
+        <button id="activateLocationBtn"
+                class="location-activate-btn"
+                type="button">
+            Activate Location
+        </button>
+
+        <p id="locationPrivacy" class="location-privacy">
+            Your location will only be included in the
+            order you choose to send.
+        </p>
+    </div>
+</div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -372,7 +372,7 @@ body {
     border-radius: 22px;
     gap: 0;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+grid-template-columns: repeat(4, minmax(0, 1fr));
     border: 1px solid rgba(184, 138, 75, 0.48);
     background: #fff4e3;
     box-shadow: 0 5px 15px rgba(70, 25, 20, 0.10);
@@ -783,7 +783,7 @@ body {
 
 /* تحسين شريط أقسام المنيو */
 .category-nav {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0;
     padding: 8px;
     border-radius: 25px;
@@ -947,7 +947,7 @@ body {
     padding: 5px !important;
 
     display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+   grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 3px !important;
 
     background: #fff5e7 !important;
@@ -2144,4 +2144,50 @@ body {
 .category-btn:not(.active) {
     background: transparent !important;
     color: #610f20 !important;
+}
+
+/* FOUR CATEGORIES IN ONE ROW */
+
+.category-nav {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    padding: 5px;
+}
+
+.category-btn {
+    min-width: 0;
+    width: 100%;
+    padding: 6px 2px;
+    font-size: 10px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* FOUR CATEGORIES - CLEAN DESIGN */
+
+.category-nav {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2px;
+    padding: 5px;
+}
+
+.category-btn {
+    width: 100%;
+    min-width: 0;
+    padding: 8px 1px;
+    font-size: 9px;
+    white-space: nowrap;
+    text-align: center;
+    overflow: hidden;
+}
+
+.category-btn span:last-child {
+    white-space: nowrap;
+    font-size: 11px;
+}
+
+.category-btn.active {
+    margin: 0 !important;
 }

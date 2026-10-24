@@ -578,13 +578,8 @@ const whatsappNumber = "96176849597";
 
 let customerLocation = null;
 let locationLoading = false;
+let locationRequestId = 0;
 const skipLocationBtn = document.getElementById("skipLocationBtn");
-skipLocationBtn?.addEventListener("click", function () {
-    if (cart.length === 0) return;
-    locationLoading = false;
-    locationModal.hidden = true;
-    sendWhatsAppOrder();
-});
 
 function showLocationModal(title, description, icon, buttonText) {
     locationTitle.textContent = title;
@@ -595,17 +590,20 @@ function showLocationModal(title, description, icon, buttonText) {
     locationModal.hidden = false;
 }
 
-function hideLocationModal() {
-    if (locationLoading) return;
+function finishWithoutLocation() {
+    if (cart.length === 0) return;
+    locationRequestId++; // Ignore a pending GPS result if the customer cancels.
+    locationLoading = false;
+    customerLocation = null;
     locationModal.hidden = true;
+    sendWhatsAppOrder();
 }
 
-closeLocationModal?.addEventListener("click", hideLocationModal);
-
+skipLocationBtn?.addEventListener("click", finishWithoutLocation);
+// Closing the location prompt cancels location sharing, NOT the order.
+closeLocationModal?.addEventListener("click", finishWithoutLocation);
 locationModal?.addEventListener("click", function (event) {
-    if (event.target === locationModal) {
-        hideLocationModal();
-    }
+    if (event.target === locationModal) finishWithoutLocation();
 });
 
 function getCustomerLocation() {
@@ -614,7 +612,6 @@ function getCustomerLocation() {
             reject(new Error("unsupported"));
             return;
         }
-
         navigator.geolocation.getCurrentPosition(
             function (position) {
                 resolve({
@@ -623,77 +620,58 @@ function getCustomerLocation() {
                 });
             },
             reject,
-            {
-                enableHighAccuracy: true,
-                timeout: 15000,
-                maximumAge: 0
-            }
+            { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
         );
     });
 }
 
 whatsappOrderButton?.addEventListener("click", function () {
     if (cart.length === 0) return;
-
-    if (!customerLocation) {
-        showLocationModal(
-            "Enable Your Location",
-            "Please allow location access so we can deliver your order.",
-            "📍",
-            "Activate Location"
-        );
+    if (customerLocation) {
+        sendWhatsAppOrder();
         return;
     }
-
-    sendWhatsAppOrder();
+    showLocationModal(
+        "Share Your Location?",
+        "Share your location for delivery, or order without it.",
+        "📍",
+        "Activate Location"
+    );
 });
 
 activateLocationBtn?.addEventListener("click", async function () {
-
-    // Success screen: close and let customer order again
+    if (cart.length === 0) return;
     if (customerLocation) {
-        hideLocationModal();
+        locationModal.hidden = true;
+        sendWhatsAppOrder();
         return;
     }
-
     if (locationLoading) return;
-
     locationLoading = true;
+    const requestId = ++locationRequestId;
     activateLocationBtn.disabled = true;
     activateLocationBtn.textContent = "Getting Location...";
-
     try {
-        customerLocation = await getCustomerLocation();
-
+        const location = await getCustomerLocation();
+        if (requestId !== locationRequestId) return;
+        customerLocation = location;
         locationLoading = false;
-
         showLocationModal(
             "Location Activated!",
-            "Your location is ready. Press Order via WhatsApp again to complete your order.",
+            "Your location will be included with your WhatsApp order.",
             "✓",
-            "Continue Shopping"
+            "Send Order with Location"
         );
-
     } catch (error) {
+        if (requestId !== locationRequestId) return;
         locationLoading = false;
-
-        let message =
-            "Please enable GPS and allow location access, then try again.";
-
-        if (error.code === 1) {
-            message =
-                "Location permission was denied. Please allow location access in your browser settings.";
+        let message = "Location could not be retrieved. You can still order without it.";
+        if (error && error.code === 1) {
+            message = "Location permission was denied. You can still order without location.";
         } else if (!window.isSecureContext) {
-            message =
-                "Please open this website using HTTPS or localhost to enable location.";
+            message = "Location requires HTTPS. You can still order without it.";
         }
-
-        showLocationModal(
-            "Location Unavailable",
-            message,
-            "!",
-            "Try Again"
-        );
+        showLocationModal("Location Unavailable", message, "📍", "Try Again");
     }
 });
 

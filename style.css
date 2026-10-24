@@ -2203,3 +2203,7 @@ grid-template-columns: repeat(4, minmax(0, 1fr));
     width: 0;
     height: 0;
 }
+
+/* Optional GPS order: secondary action visible on iPhone and Android */
+.location-skip-btn { display: block; width: 100%; margin-top: 12px; padding: 13px 12px; border: 1px solid #610f20; border-radius: 12px; background: transparent; color: #610f20; font: inherit; font-weight: bold; cursor: pointer; }
+.location-skip-btn:focus-visible { outline: 3px solid #b88a4b; outline-offset: 2px; }

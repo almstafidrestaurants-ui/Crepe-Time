@@ -574,7 +574,7 @@ const locationDescription =
 const locationIcon =
     document.getElementById("locationModalIcon");
 
-const whatsappNumber = "96176 849 597";
+const whatsappNumber = "96176849597";
 
 let customerLocation = null;
 let locationLoading = false;
@@ -722,7 +722,8 @@ function sendWhatsAppOrder() {
         "?text=" +
         encodeURIComponent(message);
 
-    window.open(whatsappUrl, "_blank");
+    // Navigate directly to avoid Safari popup restrictions after location permission.
+    window.location.assign(whatsappUrl);
 }
 
 

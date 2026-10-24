@@ -2191,3 +2191,15 @@ grid-template-columns: repeat(4, minmax(0, 1fr));
 .category-btn.active {
     margin: 0 !important;
 }
+
+/* Hide the visible cart scrollbar without disabling touch scrolling. */
+.shopping-cart-items {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+}
+.shopping-cart-items::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}

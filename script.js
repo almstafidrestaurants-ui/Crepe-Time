@@ -578,6 +578,13 @@ const whatsappNumber = "96176849597";
 
 let customerLocation = null;
 let locationLoading = false;
+const skipLocationBtn = document.getElementById("skipLocationBtn");
+skipLocationBtn?.addEventListener("click", function () {
+    if (cart.length === 0) return;
+    locationLoading = false;
+    locationModal.hidden = true;
+    sendWhatsAppOrder();
+});
 
 function showLocationModal(title, description, icon, buttonText) {
     locationTitle.textContent = title;
@@ -707,13 +714,16 @@ function sendWhatsAppOrder() {
 
     message += "  *TOTAL: " + formatPrice(total) + "*\n\n";
 
-    const locationUrl =
-        "https://www.google.com/maps?q=" +
-        customerLocation.latitude + "," +
-        customerLocation.longitude;
-
-    message += "  *Customer Location:*\n";
-    message += locationUrl + "\n\n";
+    if (customerLocation) {
+        const locationUrl =
+            "https://www.google.com/maps?q=" +
+            customerLocation.latitude + "," +
+            customerLocation.longitude;
+        message += "  *Customer Location:*\n";
+        message += locationUrl + "\n\n";
+    } else {
+        message += "  *Customer Location:* Not shared - please confirm delivery address in chat.\n\n";
+    }
     message += "Thank you! ❤️";
 
     const whatsappUrl =
